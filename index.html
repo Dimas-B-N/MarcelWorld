@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marchel World</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Courier, Times New Roman, serif;
+            color: #333;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+
+        .animated-text {
+            font-size: 3em;
+            font-weight: bold;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: .15em solid orange;
+            animation: typing 4s steps(30, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: orange; }
+        }
+
+        .description {
+            font-size: 1em;
+            margin-top: 10px;
+            color: #666;
+        }
+
+        #profile-pic {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            margin-top: 20px;
+        }
+
+        #biodata p {
+            margin: 5px 0;
+        }
+
+        #buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 5px 10px;
+            font-size: 1em;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ccc;
+            font-family: 'Times New Roman', serif;
+            font-weight: bold;
+            font-style: italic;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #bbb;
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 20px 10px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            margin-top: 20px;
+        }
+
+        #background-video {
+            width: 55%;
+            height: 55%;
+            object-fit: cover;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            animation: slideIn 0.5s ease-in;
+            display: flex;
+            align-items: center;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-content img {
+            width: 40%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .modal-content .description {
+            width: 60%;
+            padding-left: 20px;
+        }
+
+        .modal-content .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .category-btn {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #eee;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .category-btn:hover {
+            background-color: #ddd;
+        }
+
+        .motion-graphic {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .motion-graphic .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.2);
+            opacity: 0.2;
+            pointer-events: none;
+            animation: moveParticle 10s infinite;
+        }
+
+        @keyframes moveParticle {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(calc(100vw - 100%)) translateY(calc(100vh - 100%)); }
+        }
+
+        .social-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            margin: 0 10px;
+            font-size: 2em;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: #007bff;
+        }
+
+        .footer-content {
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="animated-text">Marchel World</h1>
+        <p class="description">Welcome to Marchel World : Portofolio "Karya" Digital Website.</p>
+        <p class="description">There is Some Information About Me and Some "Karya" that I Make so Far!</p>
+        <img id="profile-pic" src="profile.jpg" alt="Profile Picture">
+        <div id="biodata">
+            <p>Marchel World.</p>
+            <p>𝗦𝘁𝘂𝗱𝗲𝗻𝘁, 𝗩𝗶𝗱𝗲𝗼 𝗖𝗿𝗲𝗮𝘁𝗼𝗿, 𝗘𝗱𝗶𝘁𝗼𝗿 𝗲𝘁𝗰.</p>
+            <p>"𝗦𝗽𝗲𝘀𝗶𝗮𝗹𝗶𝘀 𝗦𝗲𝗻𝗶 𝗣𝗲𝗻𝘆𝘂𝗻𝘁𝗶𝗻𝗴𝗮𝗻 𝗠𝗲𝗱𝗶𝗮 𝗱𝗮𝗹𝗮𝗺 𝗕𝗲𝗻𝘁𝘂𝗸 𝗩𝗶𝗱𝗲𝗼"</p>
+        </div>
+        <div id="buttons">
+            <button id="media-social-btn">My Media Social for More "Karya".</button>
+            <button id="marchs-karya-btn">Some March's Karya.</button>
+            <button id="biodata-btn">My Biodata and Other Information About Me.</button>
+        </div>
+    </header>
+
+    <main id="content">
+        <!-- Content for Short Films, Social Media Content, etc. will be dynamically inserted here -->
+    </main>
+
+    <footer>
+        <video autoplay loop muted id="background-video">
+            <source src="background.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="footer-content">
+            <p>&copy; 2024 Marchel World. All rights reserved. - Writing Scenario/Script Film Theme Website.</p>
+            <p>Contact: <a href="mailto: marchelchangedtheworld@gmail.com">marchelchangedtheworld@gmail.com</a></p>
+        </div>
+    </footer>
+
+    <div class="motion-graphic">
+        <!-- Particles will be added by JavaScript -->
+    </div>
+
+    <div id="media-social" class="modal">
+        <div class="modal-content">
+            <button class="close" id="close-media-social">&times;</button>
+            <div class="social-links">
+                <a href="https://www.youtube.com/@marchelworld" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+                <a href="https://www.instagram.com/marchdarc_/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="https://www.tiktok.com/@marchelworld?_t=8pZueDkMeO7&_r=1" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="marchs-karya" class="modal">
+        <div class="modal-content">
+            <button class="close" id="close-marchs-karya">&times;</button>
+            <button class="category-btn" data-category="short-films">Short Films</button>
+            <button class="category-btn" data-category="social-media-content">Social Media Content</button>
+            <button class="category-btn" data-category="pop-culture-edits">Pop Culture Edits</button>
+            <button class="category-btn" data-category="design">Design</button>
+            <div id="category-content"></div>
+        </div>
+    </div>
+
+    <div id="biodata-modal" class="modal">
+        <div class="modal-content">
+            <button class="close" id="close-biodata">&times;</button>
+            <img src="profile2.jpg" alt="Profile Picture">
+            <div class="description">
+                <h2>Biodata</h2>
+                <p>Nama: Marchel Yogi Pratama</p>
+                <p>Tanggal Lahir: 1 Maret 2007</p>
+                <p>Sekolah: SMA Negeri 1 Baturetno</p>
+                <p>Saya adalah seorang siswa SMA yang berkecimpung di Dunia Editing khususnya Video Editingkurang lebih 4 tahunan. Saya tertarik dalam pembuatan Pop culture edits (AMV, MMV, dan K-pop edits), film pendek, konten media sosial, dan desain grafis. Saya selalu mencari kesempatan untuk belajar dan berkembang dalam industri kreatif. Software yang sering saya gunakan adalah After Effect, Alight Motion, dan Capcut.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create particles
+        function createParticles() {
+            const container = document.querySelector('.motion-graphic');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 15 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.backgroundColor = `rgba(0, 0, 0, ${Math.random() * 0.2})`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                container.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        document.getElementById('media-social-btn').addEventListener('click', function() {
+            document.getElementById('media-social').style.display = 'flex';
+        });
+
+        document.getElementById('close-media-social').addEventListener('click', function() {
+            document.getElementById('media-social').style.display = 'none';
+        });
+
+        document.getElementById('marchs-karya-btn').addEventListener('click', function() {
+            document.getElementById('marchs-karya').style.display = 'flex';
+        });
+
+        document.getElementById('close-marchs-karya').addEventListener('click', function() {
+            document.getElementById('marchs-karya').style.display = 'none';
+        });
+
+        document.getElementById('biodata-btn').addEventListener('click', function() {
+            document.getElementById('biodata-modal').style.display = 'flex';
+        });
+
+        document.getElementById('close-biodata').addEventListener('click', function() {
+            document.getElementById('biodata-modal').style.display = 'none';
+        });
+
+        document.querySelectorAll('.category-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                let content = '';
+                switch (category) {
+                    case 'short-films':
+                        content = '<iframe width="560" height="315" src="https://www.youtube.com/embed/x_zV6W1AoFQ?si=Inn3Ur9zO1-sI8EA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                        break;
+                    case 'social-media-content':
+                        content = '<iframe width="560" height="315" src="https://www.youtube.com/embed/XSreMTRePlk?si=YiZEHatiOs8m-wE0" frameborder="0" scrolling="no" allowtransparency="true"></iframe>';
+                        break;
+                    case 'pop-culture-edits':
+                        content = '<iframe width="560" height="315" src="https://www.youtube.com/embed/5DSRGmWS2-k?si=5oKGr5QMVyETECXW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><iframe width="560" height="315" src="https://www.youtube.com/embed/v0F2qgRaDDU?si=6GwzqGxLldNiLr4i" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                        break;
+                    case 'design':
+                        content = '<img src="design1.jpg" alt="Design Example" /><img src="design2.jpg" alt="Design Example" /><img src="design3.jpg" alt="Design Example" /><img src="design4.jpg" alt="Design Example" /><img src="design5.jpg" alt="Design Example" ';
+                        break;
+                }
+                document.getElementById('category-content').innerHTML = content;
+            });
+        });
+    </script>
+</body>
+</html>
